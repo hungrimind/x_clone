@@ -9,111 +9,140 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
 
-  RegExp emailValid = RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+  bool passwordObscure = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: const Image(
+          image: AssetImage('assets/x-logo.png'),
+          width: 30,
+        ),
+      ),
       body: Form(
         key: _signInKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Image(
-              image: AssetImage('assets/x.png'),
-              width: 100,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              'Log in to X',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(15, 30, 15, 0),
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(30),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Enter your password',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              child: TextFormField(
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your email',
-                  border: InputBorder.none,
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: usernameController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'User Name',
+                  hintStyle: TextStyle(color: Colors.grey[600]),
+                  enabledBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
                 ),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  } else if (!emailValid.hasMatch(value)) {
-                    return 'Please enter a valid email';
+                    return 'Please enter a username';
                   }
+
                   return null;
                 },
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(15),
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: TextFormField(
+              const SizedBox(height: 10),
+              TextFormField(
                 controller: passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
+                obscureText: passwordObscure,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
                   hintText: 'Password',
-                  border: InputBorder.none,
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  hintStyle: TextStyle(color: Colors.grey[600]),
+                  enabledBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        passwordObscure = !passwordObscure;
+                      });
+                    },
+                    icon: Icon(
+                      passwordObscure ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey[600],
+                    ),
+                  ),
                 ),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a password';
-                  } else if (value.length < 6) {
-                    return 'Password must be at least 6 letters';
                   }
                   return null;
                 },
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: 250,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(30)),
-              child: TextButton(
-                onPressed: () async {
-                  if (_signInKey.currentState!.validate()) {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const Home()));
-                  }
-                },
-                child: const Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+              const Spacer(),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 20,
+                ),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_signInKey.currentState!.validate()) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Home()),
+                        (route) => false,
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 30,
+                    ),
+                  ),
+                  child: const Text('Log in', style: TextStyle(fontSize: 18)),
                 ),
               ),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Don\'t have an account? Sign up here',
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    // Handle forgot password action
+                  },
+                  child: const Text(
+                    'Forgot password?',
+                    style: TextStyle(
+                      color: Colors.white,
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
