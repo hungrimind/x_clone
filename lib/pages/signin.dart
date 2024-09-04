@@ -16,6 +16,13 @@ class _SignInState extends State<SignIn> {
   bool passwordObscure = true;
 
   @override
+  void dispose() {
+    passwordController.dispose();
+    usernameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -36,21 +43,19 @@ class _SignInState extends State<SignIn> {
                 'Enter your password',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 24,
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
               TextFormField(
                 controller: usernameController,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'User Name',
-                  hintStyle: TextStyle(color: Colors.grey[600]),
-                  enabledBorder: const UnderlineInputBorder(
+                  enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
-                  focusedBorder: const UnderlineInputBorder(
+                  focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue),
                   ),
                 ),
@@ -66,10 +71,8 @@ class _SignInState extends State<SignIn> {
               TextFormField(
                 controller: passwordController,
                 obscureText: passwordObscure,
-                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: 'Password',
-                  hintStyle: TextStyle(color: Colors.grey[600]),
                   enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
@@ -105,10 +108,9 @@ class _SignInState extends State<SignIn> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_signInKey.currentState!.validate()) {
-                      Navigator.pushAndRemoveUntil(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => const Home()),
-                        (route) => false,
                       );
                     }
                   },

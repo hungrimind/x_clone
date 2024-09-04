@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:x_clone/models/tweet.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -16,7 +17,7 @@ class Home extends StatelessWidget {
             child: CircleAvatar(
               radius: 15,
               backgroundImage: NetworkImage(
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+                "https://pbs.twimg.com/profile_images/1799810491470028801/7hTyg0NP_400x400.jpg",
               ),
             ),
           ),
@@ -36,15 +37,11 @@ class Home extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            _buildTweetList(),
-            const Center(
-                child: Text('Following Tab Content',
-                    style: TextStyle(color: Colors.white))),
-            const Center(
-                child: Text('Subscribed Tab Content',
-                    style: TextStyle(color: Colors.white))),
+            TweetList(),
+            Center(child: Text('Following Tab Content')),
+            Center(child: Text('Subscribed Tab Content')),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -64,54 +61,38 @@ class Home extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
           backgroundColor: Colors.blue,
-          child: const Icon(Icons.add),
+          shape: const CircleBorder(),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
         ),
       ),
     );
   }
+}
 
-  Widget _buildTweetList() {
+class TweetList extends StatelessWidget {
+  const TweetList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 4,
+      itemCount: Tweet.sampleTweets.length,
       itemBuilder: (context, index) {
-        return _buildTweetCard(index);
+        return TweetCard(tweet: Tweet.sampleTweets[index]);
       },
     );
   }
+}
 
-  Widget _buildTweetCard(int index) {
-    // Sample tweet data
-    final tweets = [
-      {
-        'name': 'DogeDesigner',
-        'handle': '@cb_doge',
-        'verified': true,
-        'time': '1h',
-        'content': 'This is my first post on X\nHello world.',
-        'comments': '9.2K',
-        'retweets': '10.5K',
-        'likes': '116K',
-        'views': '11M',
-      },
-      {
-        'name': 'Michael Daly',
-        'handle': '@drmikeDO1943',
-        'verified': true,
-        'time': '3h',
-        'content':
-            'A grandson just texted: How is X? Why do you think it\'s newsworthy? My answer: It is panoply of views/comments and it is continuously updated. You immerse yourself in the "town square" of discussion and come to your own conclusions about what is true.',
-        'comments': '3.2K',
-        'retweets': '454',
-        'likes': '113K',
-        'views': '14M',
-      },
-      // Add more tweet data as needed
-    ];
+class TweetCard extends StatelessWidget {
+  final Tweet tweet;
 
-    if (index >= tweets.length) return const SizedBox.shrink();
+  const TweetCard({super.key, required this.tweet});
 
-    final tweet = tweets[index];
-
+  @override
+  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         border:
@@ -122,10 +103,9 @@ class Home extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 20,
-              backgroundImage: NetworkImage(
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"),
+              backgroundImage: NetworkImage(tweet.profilePictureUrl),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -134,40 +114,39 @@ class Home extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(tweet['name'] as String,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold)),
-                      if (tweet['verified'] == true)
-                        const Icon(Icons.verified,
-                            color: Colors.blue, size: 16),
-                      const SizedBox(width: 4),
-                      Text(tweet['handle'] as String,
+                      Text(tweet.name,
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                      const SizedBox(width: 2),
+                      if (tweet.verified)
+                        const Icon(
+                          Icons.verified,
+                          color: Colors.blue,
+                          size: 16,
+                        ),
+                      const SizedBox(width: 2),
+                      Text(tweet.handle,
                           style: const TextStyle(color: Colors.grey)),
                       const Text(' · ', style: TextStyle(color: Colors.grey)),
-                      Text(tweet['time'] as String,
+                      Text(tweet.time,
                           style: const TextStyle(color: Colors.grey)),
                       const Spacer(),
                       const Icon(Icons.more_horiz, color: Colors.grey),
                     ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(tweet['content'] as String,
-                      style: const TextStyle(color: Colors.white)),
+                  Text(tweet.content),
                   const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildIconWithText(Icons.chat_bubble_outline,
-                          tweet['comments'] as String),
-                      _buildIconWithText(
-                          Icons.repeat, tweet['retweets'] as String),
-                      _buildIconWithText(
-                          Icons.favorite_border, tweet['likes'] as String),
-                      _buildIconWithText(
-                          Icons.bar_chart, tweet['views'] as String),
-                      const Icon(Icons.share_outlined,
-                          color: Colors.grey, size: 16),
+                      IconWithText(
+                          icon: Icons.chat_bubble_outline,
+                          text: tweet.comments),
+                      IconWithText(icon: Icons.repeat, text: tweet.retweets),
+                      IconWithText(
+                          icon: Icons.favorite_border, text: tweet.likes),
+                      IconWithText(icon: Icons.bar_chart, text: tweet.views),
+                      const Icon(Icons.file_upload_outlined,
+                          color: Colors.grey, size: 20),
                     ],
                   ),
                 ],
@@ -178,13 +157,21 @@ class Home extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildIconWithText(IconData icon, String text) {
+class IconWithText extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const IconWithText({super.key, required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: Colors.grey, size: 16),
+        Icon(icon, color: Colors.grey, size: 18),
         const SizedBox(width: 4),
-        Text(text, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+        Text(text, style: const TextStyle(color: Colors.grey, fontSize: 14)),
       ],
     );
   }

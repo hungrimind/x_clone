@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:x_clone/pages/signin.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() {
   runApp(const MyApp());
 }
 
@@ -20,12 +19,9 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: Colors.black,
         textTheme: const TextTheme(
-          bodyLarge: TextStyle(fontSize: 20),
-          bodyMedium: TextStyle(fontSize: 18),
-          bodySmall: TextStyle(fontSize: 14),
+          bodyMedium: TextStyle(fontSize: 16),
         ),
       ),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
