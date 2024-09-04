@@ -11,11 +11,9 @@ class Home extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
-          elevation: 0,
-          leading: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              radius: 15,
+          leading: Container(
+            margin: const EdgeInsets.only(left: 20),
+            child: const CircleAvatar(
               backgroundImage: NetworkImage(
                 "https://pbs.twimg.com/profile_images/1799810491470028801/7hTyg0NP_400x400.jpg",
               ),
@@ -29,7 +27,9 @@ class Home extends StatelessWidget {
             labelColor: Colors.white,
             labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             unselectedLabelColor: Colors.grey,
-            dividerHeight: 0,
+            dividerHeight: 0.5,
+            dividerColor: Colors.grey,
+            indicatorColor: Colors.blue,
             tabs: [
               Tab(text: 'For you'),
               Tab(text: 'Following'),
@@ -47,15 +47,16 @@ class Home extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.black,
           type: BottomNavigationBarType.fixed,
-          iconSize: 36,
           selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.grey,
+          iconSize: 36,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
             BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-            BottomNavigationBarItem(icon: Icon(Icons.people), label: ''),
-            BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
-            BottomNavigationBarItem(icon: Icon(Icons.mail), label: ''),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.people_outline), label: ''),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.notifications_none_outlined), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.mail_outline), label: ''),
           ],
         ),
         floatingActionButton: FloatingActionButton(
