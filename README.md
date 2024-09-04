@@ -13,7 +13,7 @@ Please create an issue or pull request if you see anything outdated or know a be
 2. Run `flutter create .`
 
 
-![X Homepage](assets/home.jpeg)
+![X Homepage](assets/home.png)
 
 ## Fork the Code
 I encourage you to fork this code and build on top of it. A link to the course or this repo would be highly appreciated 😊.
