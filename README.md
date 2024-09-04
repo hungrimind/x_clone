@@ -9,8 +9,9 @@ This repo is open source, so there is transparency into what you would learn; th
 Please create an issue or pull request if you see anything outdated or know a better approach.
 
 ## How to Run
-1. Run `flutter pub get`
-2. Run `flutter create .`
+1. Fork this repo
+2. Run `flutter pub get`
+3. Run `flutter create .`
 
 
 ![X Homepage](assets/home.png)
