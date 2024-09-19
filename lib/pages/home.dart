@@ -15,10 +15,10 @@ class Home extends StatelessWidget {
             "assets/x-logo.png",
             width: 30,
           ),
-          leading: Container(
-            margin: const EdgeInsets.only(left: 20),
-            child: const CircleAvatar(
-              backgroundImage: NetworkImage(
+          leading: const Center(
+            child: CircleAvatar(
+              radius: 15,
+              foregroundImage: NetworkImage(
                 "https://pbs.twimg.com/profile_images/1799810491470028801/7hTyg0NP_400x400.jpg",
               ),
             ),
