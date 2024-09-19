@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:x_clone/pages/home.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -9,49 +8,38 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
-  final GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String username = "";
+  String password = "";
   bool passwordObscure = true;
-
-  @override
-  void dispose() {
-    passwordController.dispose();
-    usernameController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Image(
-          image: AssetImage('assets/x-logo.png'),
+        title: Image.asset(
+          "assets/x-logo.png",
           width: 30,
         ),
       ),
-      body: Form(
-        key: _signInKey,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+            children: [
               const Text(
-                'Enter your password',
+                "Enter your password",
                 style: TextStyle(
-                  color: Colors.white,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
               TextFormField(
-                controller: usernameController,
                 decoration: const InputDecoration(
-                  hintText: 'User Name',
+                  hintText: "Username",
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
@@ -66,10 +54,10 @@ class _SignInState extends State<SignIn> {
 
                   return null;
                 },
+                onSaved: (value) => username = value ?? '',
               ),
               const SizedBox(height: 10),
               TextFormField(
-                controller: passwordController,
                 obscureText: passwordObscure,
                 decoration: InputDecoration(
                   hintText: 'Password',
@@ -86,8 +74,8 @@ class _SignInState extends State<SignIn> {
                       });
                     },
                     icon: Icon(
-                      passwordObscure ? Icons.visibility : Icons.visibility_off,
-                      color: Colors.grey[600],
+                      passwordObscure ? Icons.visibility_off : Icons.visibility,
+                      color: Colors.grey,
                     ),
                   ),
                 ),
@@ -95,48 +83,44 @@ class _SignInState extends State<SignIn> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a password';
                   }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
                   return null;
                 },
+                onSaved: (value) => password = value ?? '',
               ),
               const Spacer(),
-              Container(
-                width: double.infinity,
+              Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 10,
                   horizontal: 20,
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_signInKey.currentState!.validate()) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Home()),
-                      );
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      print("Form is valid for: $username");
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
+                    minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 30,
-                    ),
+                    padding: const EdgeInsets.all(15),
                   ),
                   child: const Text('Log in', style: TextStyle(fontSize: 18)),
                 ),
               ),
               Center(
                 child: TextButton(
-                  onPressed: () {
-                    // Handle forgot password action
-                  },
+                  onPressed: () {},
                   child: const Text(
-                    'Forgot password?',
+                    "Forgot password?",
                     style: TextStyle(
-                      color: Colors.white,
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.bold,
                     ),

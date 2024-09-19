@@ -13,6 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: const SignIn(),
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black,
+        ),
         colorScheme: const ColorScheme.dark(
           primary: Colors.white,
           secondary: Colors.grey,
@@ -22,6 +25,7 @@ class MyApp extends StatelessWidget {
           bodyMedium: TextStyle(fontSize: 16),
         ),
       ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
