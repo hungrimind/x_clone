@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:x_clone/pages/home.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -100,7 +101,10 @@ class _SignInState extends State<SignIn> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      print("Form is valid for: $username");
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Home()));
                     }
                   },
                   style: ElevatedButton.styleFrom(
