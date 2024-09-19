@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:x_clone/models/tweet.dart';
+
+import '../models/post.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -10,7 +11,10 @@ class Home extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          title: Image.asset(
+            "assets/x-logo.png",
+            width: 30,
+          ),
           leading: Container(
             margin: const EdgeInsets.only(left: 20),
             child: const CircleAvatar(
@@ -19,13 +23,8 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-          title: Image.asset(
-            'assets/x-logo.png',
-            width: 30,
-          ),
           bottom: const TabBar(
-            labelColor: Colors.white,
-            labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            labelStyle: TextStyle(fontWeight: FontWeight.bold),
             unselectedLabelColor: Colors.grey,
             dividerHeight: 0.5,
             dividerColor: Colors.grey,
@@ -37,15 +36,19 @@ class Home extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            TweetList(),
-            Center(child: Text('Following Tab Content')),
-            Center(child: Text('Subscribed Tab Content')),
+            ListView.builder(
+              itemCount: Post.samplePosts.length,
+              itemBuilder: (context, index) {
+                return PostEntry(post: Post.samplePosts[index]);
+              },
+            ),
+            const Text('Following Tab'),
+            const Text('Subscribed Tab'),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.black,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.white,
           iconSize: 36,
@@ -73,107 +76,110 @@ class Home extends StatelessWidget {
   }
 }
 
-class TweetList extends StatelessWidget {
-  const TweetList({super.key});
+class PostEntry extends StatelessWidget {
+  final Post post;
 
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: Tweet.sampleTweets.length,
-      itemBuilder: (context, index) {
-        return TweetCard(tweet: Tweet.sampleTweets[index]);
-      },
-    );
-  }
-}
-
-class TweetCard extends StatelessWidget {
-  final Tweet tweet;
-
-  const TweetCard({super.key, required this.tweet});
+  const PostEntry({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border:
-            Border(bottom: BorderSide(color: Colors.grey.shade800, width: 0.5)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: 20,
-              backgroundImage: NetworkImage(tweet.profilePictureUrl),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(tweet.name,
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                      const SizedBox(width: 2),
-                      if (tweet.verified)
-                        const Icon(
-                          Icons.verified,
-                          color: Colors.blue,
-                          size: 16,
-                        ),
-                      const SizedBox(width: 2),
-                      Text(tweet.handle,
-                          style: const TextStyle(color: Colors.grey)),
-                      const Text(' · ', style: TextStyle(color: Colors.grey)),
-                      Text(tweet.time,
-                          style: const TextStyle(color: Colors.grey)),
-                      const Spacer(),
-                      const Icon(Icons.more_horiz, color: Colors.grey),
-                    ],
-                  ),
-                  Text(tweet.content),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconWithText(
-                          icon: Icons.chat_bubble_outline,
-                          text: tweet.comments),
-                      IconWithText(icon: Icons.repeat, text: tweet.retweets),
-                      IconWithText(
-                          icon: Icons.favorite_border, text: tweet.likes),
-                      IconWithText(icon: Icons.bar_chart, text: tweet.views),
-                      const Icon(Icons.file_upload_outlined,
-                          color: Colors.grey, size: 20),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.grey, width: 0.5),
         ),
       ),
-    );
-  }
-}
-
-class IconWithText extends StatelessWidget {
-  final IconData icon;
-  final String text;
-
-  const IconWithText({super.key, required this.icon, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon, color: Colors.grey, size: 18),
-        const SizedBox(width: 4),
-        Text(text, style: const TextStyle(color: Colors.grey, fontSize: 14)),
-      ],
+      padding: const EdgeInsets.all(12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CircleAvatar(
+            radius: 20,
+            backgroundImage: NetworkImage(post.profilePictureUrl),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(post.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(width: 2),
+                    if (post.verified)
+                      const Icon(Icons.verified, color: Colors.blue),
+                    const SizedBox(width: 2),
+                    Text("${post.handle} • ${post.time}",
+                        style: const TextStyle(color: Colors.grey)),
+                    const Spacer(),
+                    const Icon(Icons.more_horiz),
+                  ],
+                ),
+                Text(post.content),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(children: [
+                      const Icon(
+                        Icons.chat_bubble_outline,
+                        size: 18,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        post.comments,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                    ]),
+                    Row(children: [
+                      const Icon(
+                        Icons.repeat,
+                        size: 18,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        post.reposts,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                    ]),
+                    Row(children: [
+                      const Icon(
+                        Icons.favorite_border,
+                        size: 18,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        post.likes,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                    ]),
+                    Row(children: [
+                      const Icon(
+                        Icons.bar_chart,
+                        size: 18,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        post.views,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                    ]),
+                    const Icon(
+                      Icons.file_upload_outlined,
+                      color: Colors.grey,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
