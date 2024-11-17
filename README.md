@@ -1,20 +1,20 @@
-# X Clone with Flutter
+# X Clone built with Flutter
 
-This repo contains code for one of the many projects within the [Flutter Fundamentals Course on Hungrimind](https://www.hungrimind.com/courses/flutter/fundamentals)
+This repo contains the code for the X Clone Project on  [The Best Flutter Course on the Internet](https://www.hungrimind.com/learn/flutter)
 
+<img src="https://www.hungrimind.com/x-project.png" alt="X Clone" width="500"/>
 
 ## How to Contribute
-This repo is open source, so there is transparency into what you would learn; the code is current and follows the best practices taught in the course. 
+
+This repo is open source, so there is transparency into what you would learn; the code is current and follows the best practices taught in the course.
 
 Please create an issue or pull request if you see anything outdated or know a better approach.
 
 ## How to Run
-1. Fork this repo
-2. Run `flutter pub get`
-3. Run `flutter create .`
 
-
-![X Homepage](assets/home.png)
+1. Run `flutter pub get`
+2. Run `flutter create .`
 
 ## Fork the Code
+
 I encourage you to fork this code and build on top of it. A link to the course or this repo would be highly appreciated 😊.
