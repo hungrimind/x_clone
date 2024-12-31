@@ -17,3 +17,23 @@ analysis_options.yaml
 /.idea/
 /.dart_tool/
 /build/
+
+# Flutter
+**/pubspec.lock
+**/.metadata
+**/analysis_options.yaml
+**/*.iml
+**/*.dill
+**/*.stamp
+**/.DS_Store
+**/.vscode
+
+**/android/
+**/ios/
+**/web/
+**/windows/
+**/macos/
+**/linux/
+**/.idea/
+**/.dart_tool/
+**/build/
