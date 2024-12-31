@@ -10,6 +10,13 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Image.asset(
+          "assets/x-logo.png",
+          width: 30,
+        ),
+      ),
+    );
   }
 }
