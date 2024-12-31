@@ -16,6 +16,7 @@ class _SignInState extends State<SignIn> {
           "assets/x-logo.png",
           width: 30,
         ),
+        backgroundColor: Colors.black,
       ),
     );
   }
