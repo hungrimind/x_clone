@@ -131,4 +131,44 @@ void main() {
       reason: 'SizedBox between username and password should be 10',
     );
   });
+  testWidgets('Password visibility can be toggled',
+      (WidgetTester tester) async {
+    // Build the SignIn widget
+    await tester.pumpWidget(const MaterialApp(
+      home: SignIn(),
+    ));
+
+    final visibilityToggle = find.byIcon(Icons.visibility_off);
+
+    // Initially password should be obscured
+    expect(
+      tester.widget<TextField>(find.byType(TextField).last).obscureText,
+      true,
+    );
+    expect(visibilityToggle, findsOneWidget);
+
+    // Tap the visibility toggle
+    await tester.tap(visibilityToggle);
+    await tester.pumpAndSettle();
+
+    // Password should now be visible
+    expect(
+      tester.widget<TextField>(find.byType(TextField).last).obscureText,
+      false,
+    );
+    expect(find.byIcon(Icons.visibility), findsOneWidget);
+    expect(find.byIcon(Icons.visibility_off), findsNothing);
+
+    // Tap again to hide password
+    await tester.tap(find.byIcon(Icons.visibility));
+    await tester.pumpAndSettle();
+
+    // Password should be obscured again
+    expect(
+      tester.widget<TextField>(find.byType(TextField).last).obscureText,
+      true,
+    );
+    expect(find.byIcon(Icons.visibility_off), findsOneWidget);
+    expect(find.byIcon(Icons.visibility), findsNothing);
+  });
 }
