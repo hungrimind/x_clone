@@ -11,11 +11,7 @@ void main() {
     ));
 
     // Verify AppBar exists
-    expect(
-      find.byType(AppBar),
-      findsOneWidget,
-      reason: 'There should be an AppBar in the SignIn page',
-    );
+    expect(find.byType(AppBar), findsOneWidget);
 
     // Verify Image widget exists in AppBar
     expect(
@@ -24,7 +20,6 @@ void main() {
         matching: find.byType(Image),
       ),
       findsOneWidget,
-      reason: 'There should be an X logo in the AppBar',
     );
 
     // Verify the correct image asset is used
@@ -32,10 +27,9 @@ void main() {
     expect(
       (image.image as AssetImage).assetName,
       'assets/x-logo.png',
-      reason: 'There should be an X logo in the AppBar',
     );
 
     // Verify image width is set to 30
-    expect(image.width, 30, reason: 'The X logo should be 30px');
+    expect(image.width, 30);
   });
 }
