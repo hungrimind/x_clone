@@ -37,5 +37,13 @@ void main() {
 
     // Verify image width is set to 30
     expect(image.width, 30, reason: 'The X logo should be 30px');
+
+    // Verify AppBar background color is black
+    final AppBar appBar = tester.widget<AppBar>(find.byType(AppBar));
+    expect(
+      appBar.backgroundColor,
+      Colors.black,
+      reason: 'AppBar background should be black',
+    );
   });
 }
