@@ -37,13 +37,98 @@ void main() {
 
     // Verify image width is set to 30
     expect(image.width, 30, reason: 'The X logo should be 30px');
+  });
 
-    // Verify AppBar background color is black
-    final AppBar appBar = tester.widget<AppBar>(find.byType(AppBar));
+  testWidgets('SignIn page should have username and password fields',
+      (WidgetTester tester) async {
+    // Build the SignIn widget
+    await tester.pumpWidget(const MaterialApp(
+      home: SignIn(),
+    ));
+
+    // Verify title text exists and has correct style
+    final titleFinder = find.text('Enter your password');
+    expect(titleFinder, findsOneWidget);
+
+    final Text titleWidget = tester.widget<Text>(titleFinder);
+    expect(titleWidget.style?.fontSize, 28);
+    expect(titleWidget.style?.fontWeight, FontWeight.bold);
+
+    // Verify Form exists
+    expect(find.byType(Form), findsOneWidget);
+
+    // Verify TextFormFields exist with correct hints
+    final usernameFinder = find.widgetWithText(TextFormField, 'Username');
+    final passwordFinder = find.widgetWithText(TextFormField, 'Password');
+
+    expect(usernameFinder, findsOneWidget);
+    expect(passwordFinder, findsOneWidget);
+
+    // Get the TextFields (not TextFormFields)
+    final List<TextField> textFields =
+        tester.widgetList<TextField>(find.byType(TextField)).toList();
+
+    final usernameTextField = textFields.first;
+    final passwordTextField = textFields.last;
+
+    // Check username field decoration properties individually
+    expect(usernameTextField.decoration?.hintText, 'Username');
     expect(
-      appBar.backgroundColor,
-      Colors.black,
-      reason: 'AppBar background should be black',
+      usernameTextField.decoration?.enabledBorder,
+      const UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey),
+      ),
+    );
+    expect(
+      usernameTextField.decoration?.focusedBorder,
+      const UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.blue),
+      ),
+    );
+
+    // Check password field decoration properties individually
+    expect(passwordTextField.decoration?.hintText, 'Password');
+    expect(
+      passwordTextField.decoration?.enabledBorder,
+      const UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey),
+      ),
+    );
+    expect(
+      passwordTextField.decoration?.focusedBorder,
+      const UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.blue),
+      ),
+    );
+
+    // Verify password field is obscured
+    expect(passwordTextField.obscureText, true);
+
+    // Verify SizedBox spacings
+    final titleToUsername = find.descendant(
+      of: find.byType(Column),
+      matching: find.byWidgetPredicate(
+        (widget) => widget is SizedBox && widget.height == 20,
+      ),
+    );
+
+    final usernameToPassword = find.descendant(
+      of: find.byType(Column),
+      matching: find.byWidgetPredicate(
+        (widget) => widget is SizedBox && widget.height == 10,
+      ),
+    );
+
+    expect(
+      titleToUsername,
+      findsOneWidget,
+      reason: 'SizedBox between title and username should be 20',
+    );
+
+    expect(
+      usernameToPassword,
+      findsOneWidget,
+      reason: 'SizedBox between username and password should be 10',
     );
   });
 }

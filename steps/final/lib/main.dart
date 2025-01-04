@@ -1,5 +1,5 @@
+import 'package:demo/pages/signin.dart';
 import 'package:flutter/material.dart';
-import 'package:x_clone/pages/signin.dart';
 
 void main() {
   runApp(const MyApp());
