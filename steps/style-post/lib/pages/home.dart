@@ -19,7 +19,7 @@ class Home extends StatelessWidget {
             child: CircleAvatar(
               radius: 15,
               foregroundImage: NetworkImage(
-                "https://pbs.twimg.com/profile_images/1799810491470028801/7hTyg0NP_400x400.jpg",
+                "https://picsum.photos/300/300",
               ),
             ),
           ),
