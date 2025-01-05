@@ -1,6 +1,5 @@
+import 'package:demo/models/post.dart';
 import 'package:flutter/material.dart';
-
-import '../models/post.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
