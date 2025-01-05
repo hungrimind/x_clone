@@ -101,7 +101,7 @@ class PostEntry extends StatelessWidget {
                     if (post.verified)
                       const Icon(Icons.verified, color: Colors.blue),
                     const SizedBox(width: 2),
-                    Text("${post.handle} • ${post.time}",
+                    Text("${post.handle} - ${post.time}",
                         style: const TextStyle(color: Colors.grey)),
                     const Spacer(),
                     const Icon(Icons.more_horiz),
