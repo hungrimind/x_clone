@@ -29,7 +29,7 @@ class Post {
       handle: '@cb_doge',
       verified: true,
       time: '1h',
-      content: "This is my first post on X\nHello world.",
+      content: "This is my first post on X Hello world.",
       comments: '9.2K',
       reposts: '10.5K',
       likes: '116K',
