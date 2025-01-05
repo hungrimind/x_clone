@@ -1,4 +1,4 @@
-import 'package:demo/pages/signin.dart';
+import 'package:demo/pages/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const SignIn(),
+      home: const Home(),
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black,
