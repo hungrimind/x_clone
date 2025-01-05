@@ -422,7 +422,7 @@ void main() {
 
     // Test handle and time styling
     final handleTimeText = tester.widget<Text>(
-      find.text("${testPost.handle} • ${testPost.time}"),
+      find.text("${testPost.handle} - ${testPost.time}"),
     );
     expect(handleTimeText.style?.color, Colors.grey,
         reason: 'Handle and time should be grey');

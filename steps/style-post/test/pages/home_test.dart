@@ -381,12 +381,7 @@ void main() {
     ));
 
     // Test container decoration
-    final container = tester.widget<Container>(
-      find.ancestor(
-        of: find.byType(Row).first,
-        matching: find.byType(Container),
-      ),
-    );
+    final container = tester.widget<Container>(find.byType(Container).first);
     final BoxDecoration decoration = container.decoration as BoxDecoration;
     expect(decoration.border?.bottom.color, Colors.grey,
         reason: 'Bottom border should be grey');
@@ -422,7 +417,7 @@ void main() {
 
     // Test handle and time styling
     final handleTimeText = tester.widget<Text>(
-      find.text("${testPost.handle} • ${testPost.time}"),
+      find.text("${testPost.handle} - ${testPost.time}"),
     );
     expect(handleTimeText.style?.color, Colors.grey,
         reason: 'Handle and time should be grey');

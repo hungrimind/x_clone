@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:demo/pages/home.dart';
 import 'package:demo/pages/signin.dart';
 import 'package:flutter/material.dart';
@@ -263,6 +265,7 @@ void main() {
 
   testWidgets('Form validation should work correctly',
       (WidgetTester tester) async {
+    HttpOverrides.global = null;
     await tester.pumpWidget(const MaterialApp(
       home: SignIn(),
     ));
