@@ -84,7 +84,7 @@ class Post {
       verified: true,
       time: '30m',
       content:
-          'Exciting progress on Starship! Next test flight coming soon. To Mars and beyond! 🚀',
+          'Exciting progress on Starship! Next test flight coming soon. To Mars and beyond!',
       comments: '15.3K',
       reposts: '32.1K',
       likes: '301K',
