@@ -51,5 +51,46 @@ class Post {
       profilePictureUrl:
           'https://pbs.twimg.com/profile_images/1585715412116930561/CHkTz-aM_400x400.jpg',
     ),
+    Post(
+      name: 'Tadas Petra',
+      handle: '@tadaspetra',
+      verified: true,
+      time: '5h',
+      content: "The X Clone I'm building right now is looking so clean.",
+      comments: '42',
+      reposts: '15',
+      likes: '203',
+      views: '5.2K',
+      profilePictureUrl:
+          'https://pbs.twimg.com/profile_images/1799810491470028801/7hTyg0NP_400x400.jpg',
+    ),
+    Post(
+      name: 'Robert',
+      handle: '@RobertBrunhage',
+      verified: false,
+      time: '2h',
+      content:
+          "Hello, my name is Robert and I know how to post engaging content.",
+      comments: '31',
+      reposts: '22',
+      likes: '178',
+      views: '4.7K',
+      profilePictureUrl:
+          'https://pbs.twimg.com/profile_images/1364915715350888449/5LMWEACf_400x400.jpg',
+    ),
+    Post(
+      name: 'Elon Musk',
+      handle: '@elonmusk',
+      verified: true,
+      time: '30m',
+      content:
+          "Exciting progress on Starship! Next test flight coming soon. To Mars and beyond!",
+      comments: '15.3K',
+      reposts: '32.1K',
+      likes: '301K',
+      views: '25M',
+      profilePictureUrl:
+          'https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg',
+    ),
   ];
 }
