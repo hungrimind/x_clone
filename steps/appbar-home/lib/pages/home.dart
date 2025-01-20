@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
         leading: const Center(
           child: CircleAvatar(
             radius: 15,
-            foregroundImage: NetworkImage(
+            backgroundImage: NetworkImage(
               "https://picsum.photos/300/300",
             ),
           ),
