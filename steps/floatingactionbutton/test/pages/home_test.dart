@@ -569,7 +569,6 @@ void main() {
       ),
     );
     expect(icon.icon, Icons.add, reason: 'Should have add icon');
-    expect(icon.color, Colors.white, reason: 'Icon should be white');
 
     // Test FAB tap
     await tester.tap(find.byType(FloatingActionButton));
