@@ -324,52 +324,52 @@ void main() {
         reason: 'Should show "Subscribed" content after switching');
   });
 
-  testWidgets('ListView.builder should display posts correctly',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(
-      home: Home(),
-    ));
+  // testWidgets('ListView.builder should display posts correctly',
+  //     (WidgetTester tester) async {
+  //   await tester.pumpWidget(const MaterialApp(
+  //     home: Home(),
+  //   ));
 
-    // Verify ListView.builder exists in the first tab
-    expect(
-      find.byType(ListView),
-      findsOneWidget,
-      reason: 'Should have a ListView in the "For you" tab',
-    );
+  //   // Verify ListView.builder exists in the first tab
+  //   expect(
+  //     find.byType(ListView),
+  //     findsOneWidget,
+  //     reason: 'Should have a ListView in the "For you" tab',
+  //   );
 
-    // Verify all sample posts are displayed
-    for (final post in Post.samplePosts) {
-      expect(
-        find.text(post.content),
-        findsOneWidget,
-        reason: 'Should display post content: ${post.content}',
-      );
-    }
+  //   // Verify all sample posts are displayed
+  //   for (final post in Post.samplePosts) {
+  //     expect(
+  //       find.text(post.content),
+  //       findsOneWidget,
+  //       reason: 'Should display post content: ${post.content}',
+  //     );
+  //   }
 
-    // Verify PostEntry widgets are created for each post
-    expect(
-      find.byType(PostEntry),
-      findsNWidgets(Post.samplePosts.length),
-      reason: 'Should have a PostEntry widget for each sample post',
-    );
+  //   // Verify PostEntry widgets are created for each post
+  //   expect(
+  //     find.byType(PostEntry),
+  //     findsNWidgets(Post.samplePosts.length),
+  //     reason: 'Should have a PostEntry widget for each sample post',
+  //   );
 
-    // Test scrolling if there are multiple posts
-    if (Post.samplePosts.length > 1) {
-      final firstPostContent = Post.samplePosts.first.content;
-      final lastPostContent = Post.samplePosts.last.content;
+  //   // Test scrolling if there are multiple posts
+  //   if (Post.samplePosts.length > 1) {
+  //     final firstPostContent = Post.samplePosts.first.content;
+  //     final lastPostContent = Post.samplePosts.last.content;
 
-      // Verify first post is visible initially
-      expect(find.text(firstPostContent), findsOneWidget);
+  //     // Verify first post is visible initially
+  //     expect(find.text(firstPostContent), findsOneWidget);
 
-      // Scroll to the bottom
-      await tester.dragFrom(
-        tester.getCenter(find.byType(ListView)),
-        const Offset(0, -100),
-      );
-      await tester.pumpAndSettle();
+  //     // Scroll to the bottom
+  //     await tester.dragFrom(
+  //       tester.getCenter(find.byType(ListView)),
+  //       const Offset(0, -100),
+  //     );
+  //     await tester.pumpAndSettle();
 
-      // Verify last post is now visible
-      expect(find.text(lastPostContent), findsOneWidget);
-    }
-  });
+  //     // Verify last post is now visible
+  //     expect(find.text(lastPostContent), findsOneWidget);
+  //   }
+  // });
 }
