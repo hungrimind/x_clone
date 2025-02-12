@@ -29,7 +29,6 @@ analysis_options.yaml
 
 **/android/
 **/ios/
-**/web/
 **/windows/
 **/macos/
 **/linux/
