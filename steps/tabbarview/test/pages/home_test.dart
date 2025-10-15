@@ -300,7 +300,7 @@ void main() {
     ));
 
     // Verify initial "For you" tab content
-    expect(find.text('For yYu Tab'), findsOneWidget,
+    expect(find.text('For You Tab'), findsOneWidget,
         reason: 'Should show "For you" content initially');
     expect(find.text('Following Tab'), findsNothing,
         reason: 'Should not show "Following" content initially');
