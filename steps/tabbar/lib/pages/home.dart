@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
             dividerColor: Colors.grey,
             indicatorColor: Colors.blue,
             tabs: [
-              Tab(text: 'For you'),
+              Tab(text: 'For You'),
               Tab(text: 'Following'),
               Tab(text: 'Subscribed'),
             ],

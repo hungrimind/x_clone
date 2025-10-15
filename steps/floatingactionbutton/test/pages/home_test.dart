@@ -265,8 +265,8 @@ void main() {
     );
 
     // Verify all three tabs exist with correct text
-    expect(find.text('For you'), findsOneWidget,
-        reason: 'Should have "For you" tab');
+    expect(find.text('For You'), findsOneWidget,
+        reason: 'Should have "For You" tab');
     expect(find.text('Following'), findsOneWidget,
         reason: 'Should have "Following" tab');
     expect(find.text('Subscribed'), findsOneWidget,
@@ -339,7 +339,7 @@ void main() {
     expect(
       find.byType(ListView),
       findsOneWidget,
-      reason: 'Should have a ListView in the "For you" tab',
+      reason: 'Should have a ListView in the "For You" tab',
     );
 
     expect(
