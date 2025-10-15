@@ -37,7 +37,7 @@ class Home extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            const Text('For you Tab'),
+            const Text('For You Tab'),
             const Text('Following Tab'),
             const Text('Subscribed Tab'),
           ],

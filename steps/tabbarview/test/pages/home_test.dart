@@ -300,7 +300,7 @@ void main() {
     ));
 
     // Verify initial "For you" tab content
-    expect(find.text('For you Tab'), findsOneWidget,
+    expect(find.text('For yYu Tab'), findsOneWidget,
         reason: 'Should show "For you" content initially');
     expect(find.text('Following Tab'), findsNothing,
         reason: 'Should not show "Following" content initially');
@@ -311,7 +311,7 @@ void main() {
     await tester.tap(find.text('Following'));
     await tester.pumpAndSettle();
 
-    expect(find.text('For you Tab'), findsNothing,
+    expect(find.text('For You Tab'), findsNothing,
         reason: 'Should not show "For you" content after switching');
     expect(find.text('Following Tab'), findsOneWidget,
         reason: 'Should show "Following" content after switching');
@@ -322,7 +322,7 @@ void main() {
     await tester.tap(find.text('Subscribed'));
     await tester.pumpAndSettle();
 
-    expect(find.text('For you Tab'), findsNothing,
+    expect(find.text('For You Tab'), findsNothing,
         reason: 'Should not show "For you" content');
     expect(find.text('Following Tab'), findsNothing,
         reason: 'Should not show "Following" content');
