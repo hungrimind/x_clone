@@ -45,5 +45,12 @@ void main() {
       Colors.black,
       reason: 'AppBar background should be black',
     );
+
+    // Verify AppBar centerTitle is true
+    expect(
+      appBar.centerTitle,
+      true,
+      reason: 'AppBar title should be centered',
+    );
   });
 }
